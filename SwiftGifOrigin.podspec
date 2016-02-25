@@ -10,8 +10,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
 
   s.source = {
-    git: 'https://github.com/bahlo/SwiftGif.git',
-    tag: s.version.to_s
+    git: 'https://github.com/bahlo/SwiftGif.git'
   }
 
   s.source_files = 'SwiftGifCommon/*.swift'
