@@ -194,7 +194,7 @@ extension UIImage {
         }
         
         
-        
+        //If no speed is enter, then the dividerSpeed is the original nomber from pod
         if speed != nil {
             dividerSpeed = speedBase + speed!
         } else {
