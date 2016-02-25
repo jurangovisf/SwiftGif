@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.source = {
     git: 'https://github.com/bahlo/SwiftGif.git',
-    tag: 'v1.5.2'
+    tag: s.version.to_s
   }
 
   s.source_files = 'SwiftGifCommon/*.swift'
