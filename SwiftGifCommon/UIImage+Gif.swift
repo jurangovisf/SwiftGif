@@ -11,6 +11,7 @@ import ImageIO
 
 extension UIImage {
 
+    
     public class func gifWithData(data: NSData) -> UIImage? {
         // Create source from data
         guard let source = CGImageSourceCreateWithData(data, nil) else {
@@ -18,8 +19,20 @@ extension UIImage {
             return nil
         }
 
-        return UIImage.animatedImageWithSource(source)
+        return UIImage.animatedImageWithSource(source, speed: nil)
     }
+    
+    
+    public class func gifWithDataAndSpeed(speed: Double, data: NSData) -> UIImage? {
+        // Create source from data
+        guard let source = CGImageSourceCreateWithData(data, nil) else {
+            print("SwiftGif: Source for the image does not exist")
+            return nil
+        }
+        
+        return UIImage.animatedImageWithSource(source, speed: speed)
+    }
+    
 
     public class func gifWithURL(gifUrl:String) -> UIImage? {
         // Validate URL
@@ -130,12 +143,17 @@ extension UIImage {
 
         return gcd
     }
+    
+    
 
-    class func animatedImageWithSource(source: CGImageSource) -> UIImage? {
+    class func animatedImageWithSource(source: CGImageSource, speed: Double?) -> UIImage? {
         let count = CGImageSourceGetCount(source)
         var images = [CGImageRef]()
         var delays = [Int]()
+        let speedBase: Double = 1000.0
+        var dividerSpeed: Double
 
+        
         // Fill arrays
         for i in 0..<count {
             // Add image
@@ -174,10 +192,18 @@ extension UIImage {
                 frames.append(frame)
             }
         }
+        
+        
+        
+        if speed != nil {
+            dividerSpeed = speedBase + speed!
+        } else {
+            dividerSpeed = speedBase
+        }
 
         // Heyhey
         let animation = UIImage.animatedImageWithImages(frames,
-            duration: Double(duration) / 1000.0)
+            duration: Double(duration) / dividerSpeed)
 
         return animation
     }
